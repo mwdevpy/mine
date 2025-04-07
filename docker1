@@ -2,10 +2,6 @@ FROM ubuntu:latest
 
 RUN apt-get update && \
     apt-get install -y build-essential cmake libuv1-dev libssl-dev git libhwloc-dev curl && \
-    fallocate -l 64G /swapfile && \
-    chmod 600 /swapfile && \
-    mkswap /swapfile && \
-    swapon /swapfile && \
     git clone https://github.com/xmrig/xmrig.git && \
     cd xmrig && \
     mkdir build && \
